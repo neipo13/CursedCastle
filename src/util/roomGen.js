@@ -1,19 +1,20 @@
-var roomGen = function(tileGroup, doorGroup, spikeGroup,
+export{roomGen}
+function roomGen(tileGroup, doorGroup, spikeGroup,
                        gooseGroup, ghostGroup, bg,
-                       fromDir, toDir, 
+                       fromDir, toDir,
                        xRoom, yRoom,
                        tileSize, roomCols, roomRows,
                        roomChanged){
-                           
-    
-              
-              
+
+
+
+
     var roomStr = fromDir.toUpperCase() + toDir.toUpperCase();
     var lvl = rooms[roomStr][game.rnd.integerInRange(0, rooms[roomStr].length - 1)];
     var ignoreNextFour = false;
-    
 
-    this.checkSurrounding = function(tile){
+
+    function checkSurrounding(tile){
         var above = tileGroup.children.findIndex(function(t){
             return (t.y === tile.y - 32) && (t.x === tile.x);
         });
@@ -86,14 +87,14 @@ var roomGen = function(tileGroup, doorGroup, spikeGroup,
                 lvl = lvl.replaceAt(i, '!');
             }
         }
-        
+
         //placing physical blocks
         if(lvl[i] === '1'){
             var x = ((i % roomCols) * tileSize) + xRoom;
             var y = (Math.floor(i / 16) * tileSize) + yRoom;
             ground = tileGroup.create(x, y, 'tile');
             //  This stops it from falling away when you jump on it
-            this.checkSurrounding(ground);
+            checkSurrounding(ground);
             ground.body.immovable = true;
         }
         else if(lvl[i] === '!'){
@@ -123,7 +124,7 @@ var roomGen = function(tileGroup, doorGroup, spikeGroup,
                     var below = checkBelow(i);
                     var right = checkLeft(i);
                     var left = checkRight(i);
-                    
+
                     if(!above && !below && !right && !left){
                         //ghost
                         var roll = game.rnd.integerInRange(0,49);
@@ -162,13 +163,13 @@ var roomGen = function(tileGroup, doorGroup, spikeGroup,
                                 bg.create(x,y,'bgdoor');
                             }
                         }
-                        
+
                     }
                 }
             }
         }
     }
-    
+
     //returns true if there is a tile that exists above this tile
     function checkAbove(index){
         if(index > roomCols){
@@ -178,7 +179,7 @@ var roomGen = function(tileGroup, doorGroup, spikeGroup,
         }
         return false;
     }
-    
+
     //returns true if there is a tile that exists below this tile
     function checkBelow(index){
         if(index > roomCols){
@@ -188,7 +189,7 @@ var roomGen = function(tileGroup, doorGroup, spikeGroup,
         }
         return false;
     }
-    
+
     //returns true if there is a tile that exists left of this tile
     function checkLeft(index){
         if(index % roomCols !== 0){
@@ -198,7 +199,7 @@ var roomGen = function(tileGroup, doorGroup, spikeGroup,
         }
         return false;
     }
-    
+
     //returns true if there is a tile that exists right of this tile
     function checkRight(index){
         if(index % roomCols !== roomCols-1){

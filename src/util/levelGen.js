@@ -1,11 +1,12 @@
-var levelGen = function(height, width, startHeight, 
-                        rightChance, upChance, downChance, 
+export { levelGen }
+function levelGen(height, width, startHeight,
+                        rightChance, upChance, downChance,
                         tileGroup, doorGroup,  spikeGroup,
                         gooseGroup, ghostGroup, bg,
                         game, roomChanged){
-    
+
     var totalChance = rightChance + upChance + downChance;
-    
+
     //rolls the new direction, not allowing it to loop back on itself
     function selectNewDir(fromDir){
         var rand = game.rnd.integerInRange(0, totalChance);
@@ -20,16 +21,16 @@ var levelGen = function(height, width, startHeight,
         else{
             newDir='D';
         }
-        
+
         //going down/up can't go back in on yourself
         if(fromDir === newDir){
             newDir = 'R';
         }
-        
-        
+
+
         return newDir;
     }
-    
+
     //takes dir to in last set path and gets dir from for new path
     function setOldDir(dir){
         if(dir === 'R'){
@@ -42,20 +43,20 @@ var levelGen = function(height, width, startHeight,
             return 'U';
         }
     }
-    
+
     //keeping track of where we came from
     var prevX;          //room x
     var prevY;          //room y
     var prevFrom;       //from direction - string
     var prevTo;         //to direction - string
-    
+
     //used to recalculate if new breaks some validation
     //initialized to create starting room
     var currX = 0;
     var currY = startHeight;
     var currFrom = 'S';
     var currTo = 'R';
-    
+
     //build all rooms minus the final room (boss?)
     while(currX < width - 1){
         //if going to high, change to right
@@ -76,7 +77,7 @@ var levelGen = function(height, width, startHeight,
         prevY = currY;
         prevTo = currTo;
         prevFrom = currFrom;
-        
+
         //gen next room
         currFrom = setOldDir(prevTo);
         currTo = selectNewDir(currFrom);
