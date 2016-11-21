@@ -46,7 +46,7 @@ function create() {
     player.create(80, 224 + 288, true, bullets);
     input.create();
     
-    var lvlStyle = {fill: "#fff", boundsAlignH: "center", boundsAlignV: "middle"};
+    var lvlStyle = {font:'VT323', fontSize:'32px', fill: "#fff", boundsAlignH: "center", boundsAlignV: "middle"};
 
     var prev = game.add.text(0, 0, world + '-' + level, lvlStyle);
     prev.setTextBounds(0, 77 + 288, 256, 77);

@@ -108,6 +108,49 @@ var roomGen = function(tileGroup, doorGroup, spikeGroup,
             var y = (Math.floor(i / 16) * tileSize) + yRoom;
             doorGroup.create(x,y,'door');
         }
+        //placing enemies
+        else if(lvl[i] === 'G')
+        {
+            //definitely place ghost
+            var x = ((i % roomCols) * tileSize) + xRoom;
+            var y = (Math.floor(i / 16) * tileSize) + yRoom;
+            var g = new Ghost();
+            g.create(x, y, roomChanged);
+            ghostGroup.add(g);
+        }
+        else if(lvl[i] === 'g')
+        {
+            //chance to place ghost
+            var roll = game.rnd.integerInRange(0,100);
+            if(roll >= 0 && roll <= 50){
+                var x = ((i % roomCols) * tileSize) + xRoom;
+                var y = (Math.floor(i / 16) * tileSize) + yRoom;
+                var g = new Ghost();
+                g.create(x, y, roomChanged);
+                ghostGroup.add(g);
+            }
+        }
+        else if(lvl[i] === 'W')
+        {
+            //definitely place goose
+            var x = ((i % roomCols) * tileSize) + xRoom;
+            var y = (Math.floor(i / 16) * tileSize) + yRoom;
+            var goose = new Goose();
+            goose.create(x + 16, y + 16, roomChanged);
+            gooseGroup.add(goose);
+        }
+        else if(lvl[i] === 'w')
+        {
+            //chance to place goose
+            var roll = game.rnd.integerInRange(0,100);
+            if(roll >= 0 && roll <= 50){
+                var x = ((i % roomCols) * tileSize) + xRoom;
+                var y = (Math.floor(i / 16) * tileSize) + yRoom;
+                var goose = new Goose();
+                goose.create(x + 16, y + 16, roomChanged);
+                gooseGroup.add(goose);
+            }
+        }
     }
     //again for objects once tiles are finalized
     //if not in special rooms
@@ -127,14 +170,7 @@ var roomGen = function(tileGroup, doorGroup, spikeGroup,
                     if(!above && !below && !right && !left){
                         //ghost
                         var roll = game.rnd.integerInRange(0,49);
-                        if(roll === 0){
-                            var x = ((i % roomCols) * tileSize) + xRoom;
-                            var y = (Math.floor(i / 16) * tileSize) + yRoom;
-                            var g = new Ghost();
-                            g.create(x, y, roomChanged);
-                            ghostGroup.add(g);
-                        }
-                        else if((roll >= 1 && roll <= 10) && (Math.floor(i / roomCols) == 3 || Math.floor(i / roomCols) == 5)){
+                        if((roll >= 1 && roll <= 10) && (Math.floor(i / roomCols) == 3 || Math.floor(i / roomCols) == 5)){
                             var x = ((i % roomCols) * tileSize) + xRoom;
                             var y = (Math.floor(i / 16) * tileSize) + yRoom;
                             bg.create(x,y,'window');
@@ -142,14 +178,7 @@ var roomGen = function(tileGroup, doorGroup, spikeGroup,
                     }
                     else if(below){
                         var roll = game.rnd.integerInRange(0,20);
-                        if(roll === 0){
-                            var x = ((i % roomCols) * tileSize) + xRoom;
-                            var y = (Math.floor(i / 16) * tileSize) + yRoom;
-                            var goose = new Goose();
-                            goose.create(x + 16, y + 16, roomChanged);
-                            gooseGroup.add(goose);
-                        }
-                        else if(roll === 1){
+                        if(roll === 1){
                             roll = game.rnd.integerInRange(1,2)
                             if(roll === 1){
                                 var x = ((i % roomCols) * tileSize) + xRoom;

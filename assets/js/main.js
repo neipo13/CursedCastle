@@ -13,3 +13,17 @@ game.state.add('Game', Game);
 game.state.add('Mid', Mid);
 
 game.state.start('Menu');
+
+WebFontConfig = {
+    //After this is loaded initially, we should be able to set any text to a font in the google families below
+    
+    //  'active' means all requested fonts have finished loading
+    //  For some reason if we don't the browser cannot render the text the first time it's created.
+    active: function() { game.time.events.add(Phaser.Timer.QUARTER, createText, this); },
+
+    //  The Google Fonts we want to load (specify as many as you like in the array)
+    google: {
+      families: ['VT323']
+    }
+
+};

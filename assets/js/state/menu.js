@@ -14,6 +14,8 @@ var player = null,
     bullets= null;
 
 function preload() {
+    game.load.script('webfont', 'https://ajax.googleapis.com/ajax/libs/webfont/1.4.7/webfont.js');
+    
     game.load.image('tile', 'assets/img/tile.png');
     game.load.image('door', 'assets/img/door.png');
     game.load.image('tile', 'assets/img/tile.png');
@@ -76,16 +78,20 @@ function create() {
     player.create(256, 144, false, bullets);
     input.create();
     
-    var titleStyle = {fill: "#fff", boundsAlignH: "center", boundsAlignV: "middle"};
+   
+    
+}
+
+function createText(){
+     var titleStyle = {font:'VT323', fontSize:'32px',fill: "#fff", boundsAlignH: "center", boundsAlignV: "middle"};
 
     var title = game.add.text(0, 0, "Cursed Castle", titleStyle);
     title.setTextBounds(0, 77, 512, 77);
     
-    var descStyle = {fill: "#fff", boundsAlignH: "center", boundsAlignV: "middle", fontSize: "16", wordWrap:true, align:'center'};
+    var descStyle = {font:'VT323', fontSize:'16px', fill: "#fff", boundsAlignH: "center", boundsAlignV: "middle", wordWrap:true};
     
-    var doorDesc = game.add.text(0,0, "Press down or S Here to Enter", descStyle);
+    var doorDesc = game.add.text(0,0, "Press down or S here to enter", descStyle);
     doorDesc.setTextBounds(0, 100, 225, 100);
-    
 }
 
 function update(){
