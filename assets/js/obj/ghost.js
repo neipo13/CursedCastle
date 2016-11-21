@@ -14,21 +14,21 @@ Ghost.prototype = Object.create(Phaser.Sprite.prototype);
 Ghost.prototype.constructor = Ghost;
 Ghost.prototype.create = function(x, y, roomChangedEvent) {
     Phaser.Sprite.call(this, game, x, y, 'ghost');
-    
+
     this.emitter = game.add.emitter(x, y, 50);
     this.emitter.makeParticles('particle');
     this.emitter.gravity = 50;
     this.emitter.setSize(5, 16);
     this.emitter.setScale(1, 7, 1, 7);
-    
+
     game.physics.arcade.enable(this);
     this.body.collideWorldBounds = true;
-    
+
     this.anchor.setTo(.5, .5);
     this.scale.setTo(1,1);
     this.body.setSize(16, 16, 8, 8);
     this.body.allowGravity = false;
-    
+
     this.frame = 0;
     roomChangedEvent.add(this.setActive, this);
     this.events.onKilled.add(this.explode, this);
@@ -39,7 +39,7 @@ Ghost.prototype.doUpdate = function(playerX, playerY, playerScale){
         var isLeft = playerX < this.x;
         var isBelow = playerY > this.y;
         this.active = null;
-        
+
         if((playerScale > 0 && !isLeft) || (playerScale < 0 && isLeft)){
             this.frame = 0;
             this.active = true;
@@ -80,14 +80,14 @@ Ghost.prototype.doUpdate = function(playerX, playerY, playerScale){
         else if(!isLeft && this.scale.x > 0){
             this.scale.x = -1;
         }
-        
+
         if(isLeft && this.active){
             this.body.acceleration.x = -this.moveAccel;
         }
         else if(this.active){
             this.body.acceleration.x = this.moveAccel;
         }
-        
+
         if(isBelow && this.active){
             this.body.acceleration.y = this.verticalAccel;
         }
@@ -117,7 +117,7 @@ Ghost.prototype.setActive = function(roomXY){
     if(roomXY){
         var roomX = Math.floor(this.x / roomXY.width) * roomXY.width;
         var roomY = Math.floor(this.y / roomXY.height) * roomXY.height;
-        
+
         if(roomX === roomXY.x && roomY === roomXY.y){
             this.onscreen = true
         }
@@ -133,4 +133,11 @@ Ghost.prototype.explode = function(){
     var x = new Xplo();
     x.create(this.x, this.y);
     this.emitter=null;
+
+    //random number to determine drops
+    var rand = game.rnd.integerInRange(0, 99);
+    if(rand < 10){
+      var y = new HealthDrop();
+      y.create(this.x, this.y);
+    }
 }
