@@ -15,7 +15,7 @@ var player = null,
 
 function preload() {
     game.load.script('webfont', 'https://ajax.googleapis.com/ajax/libs/webfont/1.4.7/webfont.js');
-    
+
     game.load.image('tile', 'assets/img/tile.png');
     game.load.image('door', 'assets/img/door.png');
     game.load.image('tile', 'assets/img/tile.png');
@@ -26,27 +26,28 @@ function preload() {
     game.load.image('shelf', 'assets/img/shelf.png');
     game.load.image('window', 'assets/img/window.png');
     game.load.image('bgdoor', 'assets/img/bgdoor.png');
-    
-    
+
+
     game.load.spritesheet('goose', 'assets/img/goose.png', 32, 32, 4);
     game.load.spritesheet('ghost', 'assets/img/ghost.png', 32, 32, 2);
+    game.load.spritesheet('bat', 'assets/img/ghost.png', 32, 32, 24);
     game.load.spritesheet('player', 'assets/img/playersheet.png', 32, 32, 32);
     game.load.spritesheet('bullet', 'assets/img/bulletsheet.png', 32, 32, 18);
     game.load.spritesheet('xplo', 'assets/img/explosion.png', 32, 32, 8);
-    
+
     game.load.audio('jump', 'assets/sounds/effects/jump.wav');
     game.load.audio('land', 'assets/sounds/effects/land.wav');
     game.load.audio('step', 'assets/sounds/effects/step.wav');
     game.load.audio('ouch', 'assets/sounds/effects/dmg.wav');
-    
+
     game.load.shader('ColorReplace', 'assets/shaders/ColorReplaceFilter.frag');
-    
+
     player = new Player();
     player.init();
     player.preload();
-    
+
     input = Input;
-    
+
     var date = new Date();
     var seed = date.getDate() + '' + date.getDay() + date.getHours() + date.getMilliseconds();
     game.rnd.sow(seed)
@@ -73,13 +74,13 @@ function create() {
     //generate the menu room
     roomGen(platforms, door, spikes, null, null, null, 'ME', 'NU', 0, 0, 32, 16, 9);
     game.world.setBounds(0, 0, 512 , 1024);
-    
-    
+
+
     player.create(256, 144, false, bullets);
     input.create();
-    
-   
-    
+
+
+
 }
 
 function createText(){
@@ -87,9 +88,9 @@ function createText(){
 
     var title = game.add.text(0, 0, "Cursed Castle", titleStyle);
     title.setTextBounds(0, 77, 512, 77);
-    
+
     var descStyle = {font:'VT323', fontSize:'16px', fill: "#fff", boundsAlignH: "center", boundsAlignV: "middle", wordWrap:true};
-    
+
     var doorDesc = game.add.text(0,0, "Press down or S here to enter", descStyle);
     doorDesc.setTextBounds(0, 100, 225, 100);
 }
@@ -99,7 +100,7 @@ function update(){
     game.physics.arcade.collide(player.sprite, platforms, playerLand, player.preLand);
     game.physics.arcade.overlap(player.sprite, door, player.collideWithDoor);
     game.physics.arcade.collide(player.sprite, spikes, player.collideWithSpike);
-        
+
     game.physics.arcade.collide(platforms, bullets, bulletHit(platforms, bullets));
     var commands = input.update();
     player.update(commands);

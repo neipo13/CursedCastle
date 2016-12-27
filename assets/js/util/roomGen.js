@@ -1,17 +1,17 @@
 var roomGen = function(tileGroup, doorGroup, spikeGroup,
                        gooseGroup, ghostGroup, bg,
-                       fromDir, toDir, 
+                       fromDir, toDir,
                        xRoom, yRoom,
                        tileSize, roomCols, roomRows,
                        roomChanged){
-                           
-    
-              
-              
+
+
+
+
     var roomStr = fromDir.toUpperCase() + toDir.toUpperCase();
     var lvl = rooms[roomStr][game.rnd.integerInRange(0, rooms[roomStr].length - 1)];
     var ignoreNextFour = false;
-    
+
 
     this.checkSurrounding = function(tile){
         var above = tileGroup.children.findIndex(function(t){
@@ -86,7 +86,7 @@ var roomGen = function(tileGroup, doorGroup, spikeGroup,
                 lvl = lvl.replaceAt(i, '!');
             }
         }
-        
+
         //placing physical blocks
         if(lvl[i] === '1'){
             var x = ((i % roomCols) * tileSize) + xRoom;
@@ -130,6 +130,27 @@ var roomGen = function(tileGroup, doorGroup, spikeGroup,
                 ghostGroup.add(g);
             }
         }
+        else if(lvl[i] === 'B')
+        {
+            //definitely place bat
+            var x = ((i % roomCols) * tileSize) + xRoom;
+            var y = (Math.floor(i / 16) * tileSize) + yRoom;
+            var g = new Bat();
+            g.create(x, y, roomChanged);
+            ghostGroup.add(g);
+        }
+        else if(lvl[i] === 'b')
+        {
+            //chance to place bat
+            var roll = game.rnd.integerInRange(0,100);
+            if(roll >= 0 && roll <= 50){
+                var x = ((i % roomCols) * tileSize) + xRoom;
+                var y = (Math.floor(i / 16) * tileSize) + yRoom;
+                var g = new Bat();
+                g.create(x, y, roomChanged);
+                ghostGroup.add(g);
+            }
+        }
         else if(lvl[i] === 'W')
         {
             //definitely place goose
@@ -166,7 +187,7 @@ var roomGen = function(tileGroup, doorGroup, spikeGroup,
                     var below = checkBelow(i);
                     var right = checkLeft(i);
                     var left = checkRight(i);
-                    
+
                     if(!above && !below && !right && !left){
                         //ghost
                         var roll = game.rnd.integerInRange(0,49);
@@ -191,13 +212,13 @@ var roomGen = function(tileGroup, doorGroup, spikeGroup,
                                 bg.create(x,y,'bgdoor');
                             }
                         }
-                        
+
                     }
                 }
             }
         }
     }
-    
+
     //returns true if there is a tile that exists above this tile
     function checkAbove(index){
         if(index > roomCols){
@@ -207,7 +228,7 @@ var roomGen = function(tileGroup, doorGroup, spikeGroup,
         }
         return false;
     }
-    
+
     //returns true if there is a tile that exists below this tile
     function checkBelow(index){
         if(index > roomCols){
@@ -217,7 +238,7 @@ var roomGen = function(tileGroup, doorGroup, spikeGroup,
         }
         return false;
     }
-    
+
     //returns true if there is a tile that exists left of this tile
     function checkLeft(index){
         if(index % roomCols !== 0){
@@ -227,7 +248,7 @@ var roomGen = function(tileGroup, doorGroup, spikeGroup,
         }
         return false;
     }
-    
+
     //returns true if there is a tile that exists right of this tile
     function checkRight(index){
         if(index % roomCols !== roomCols-1){

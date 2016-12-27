@@ -72,7 +72,6 @@ Goose.prototype.setActive = function(roomXY){
 }
 
 Goose.prototype.explode = function(){
-    console.log('IN');
     var x = new Xplo();
     x.create(this.x, this.y, 1.25);
 

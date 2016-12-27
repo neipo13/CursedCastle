@@ -129,7 +129,6 @@ Ghost.prototype.setActive = function(roomXY){
 }
 
 Ghost.prototype.explode = function(){
-    console.log('IN');
     var x = new Xplo();
     x.create(this.x, this.y);
     this.emitter=null;
