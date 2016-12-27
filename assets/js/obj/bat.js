@@ -1,8 +1,8 @@
 Bat = function(){
     this.moveSpeed = 50;
     this.slideSpeed = 15;
-    this.moveAccel = 25;
-    this.verticalAccel = 15;
+    this.moveAccel = 60;
+    this.verticalAccel = 50;
     this.particleMax = 10;
     this.onscreen = false;
     this.active = false;
@@ -37,7 +37,7 @@ Bat.prototype.doUpdate = function(playerX, playerY, playerScale){
         var isLeft = playerX < this.x;
         var isBelow = playerY > this.y;
         //activate
-        if(!this.active && isBelow && Math.abs(playerX - this.x) < 20){
+        if(!this.active && isBelow && Math.abs(playerX - this.x) < 100){
             this.active = true;
             this.animations.play('release');
         }
@@ -49,17 +49,17 @@ Bat.prototype.doUpdate = function(playerX, playerY, playerScale){
         }
 
         if(isLeft && this.active){
-            this.body.acceleration.x = -this.moveAccel;
+            this.body.velocity.x = -this.moveAccel;
         }
         else if(this.active){
-            this.body.acceleration.x = this.moveAccel;
+            this.body.velocity.x = this.moveAccel;
         }
 
         if(isBelow && this.active){
-            this.body.acceleration.y = this.verticalAccel;
+            this.body.velocity.y = this.verticalAccel;
         }
         else if(this.active){
-            this.body.acceleration.y = -this.verticalAccel;
+            this.body.velocity.y = -this.verticalAccel;
         }
     }
 }

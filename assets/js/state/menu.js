@@ -30,7 +30,7 @@ function preload() {
 
     game.load.spritesheet('goose', 'assets/img/goose.png', 32, 32, 4);
     game.load.spritesheet('ghost', 'assets/img/ghost.png', 32, 32, 2);
-    game.load.spritesheet('bat', 'assets/img/ghost.png', 32, 32, 24);
+    game.load.spritesheet('bat', 'assets/img/bat.png', 32, 32, 24);
     game.load.spritesheet('player', 'assets/img/playersheet.png', 32, 32, 32);
     game.load.spritesheet('bullet', 'assets/img/bulletsheet.png', 32, 32, 18);
     game.load.spritesheet('xplo', 'assets/img/explosion.png', 32, 32, 8);
