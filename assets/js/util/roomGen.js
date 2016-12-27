@@ -1,5 +1,5 @@
 var roomGen = function(tileGroup, doorGroup, spikeGroup,
-                       gooseGroup, ghostGroup, bg,
+                       gooseGroup, ghostGroup, batGroup, bg,
                        fromDir, toDir,
                        xRoom, yRoom,
                        tileSize, roomCols, roomRows,
@@ -137,7 +137,7 @@ var roomGen = function(tileGroup, doorGroup, spikeGroup,
             var y = (Math.floor(i / 16) * tileSize) + yRoom;
             var g = new Bat();
             g.create(x, y, roomChanged);
-            ghostGroup.add(g);
+            batGroup.add(g);
         }
         else if(lvl[i] === 'b')
         {
@@ -148,7 +148,7 @@ var roomGen = function(tileGroup, doorGroup, spikeGroup,
                 var y = (Math.floor(i / 16) * tileSize) + yRoom;
                 var g = new Bat();
                 g.create(x, y, roomChanged);
-                ghostGroup.add(g);
+                batGroup.add(g);
             }
         }
         else if(lvl[i] === 'W')

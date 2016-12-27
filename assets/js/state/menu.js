@@ -72,7 +72,7 @@ function create() {
     door.enableBody = true;
     spikes.enableBody = true;
     //generate the menu room
-    roomGen(platforms, door, spikes, null, null, null, 'ME', 'NU', 0, 0, 32, 16, 9);
+    roomGen(platforms, door, spikes, null, null, null, null, 'ME', 'NU', 0, 0, 32, 16, 9);
     game.world.setBounds(0, 0, 512 , 1024);
 
 

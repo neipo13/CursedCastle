@@ -1,7 +1,7 @@
 var levelGen = function(height, width, startHeight, 
                         rightChance, upChance, downChance, 
                         tileGroup, doorGroup,  spikeGroup,
-                        gooseGroup, ghostGroup, bg,
+                        gooseGroup, ghostGroup, batGroup, bg,
                         game, roomChanged){
     
     var totalChance = rightChance + upChance + downChance;
@@ -70,7 +70,7 @@ var levelGen = function(height, width, startHeight,
         }
         //create the new room
         console.log(currFrom, currTo);
-        roomGen(tileGroup, doorGroup, spikeGroup, gooseGroup, ghostGroup, bg, currFrom, currTo, currX * game.tileSize * game.roomCols, currY * game.tileSize * game.roomRows, game.tileSize, game.roomCols, game.roomRows, roomChanged);
+        roomGen(tileGroup, doorGroup, spikeGroup, gooseGroup, ghostGroup, batGroup, bg, currFrom, currTo, currX * game.tileSize * game.roomCols, currY * game.tileSize * game.roomRows, game.tileSize, game.roomCols, game.roomRows, roomChanged);
         //set previous
         prevX = currX;
         prevY = currY;
@@ -92,5 +92,5 @@ var levelGen = function(height, width, startHeight,
         //restart the loop to set the new room
     }
     //set final room
-    roomGen(tileGroup, doorGroup, spikeGroup,gooseGroup, ghostGroup, bg, 'L', 'E', currX * game.tileSize * game.roomCols, currY * game.tileSize * game.roomRows, game.tileSize, game.roomCols, game.roomRows, roomChanged);
+    roomGen(tileGroup, doorGroup, spikeGroup, gooseGroup, ghostGroup, batGroup, bg, 'L', 'E', currX * game.tileSize * game.roomCols, currY * game.tileSize * game.roomRows, game.tileSize, game.roomCols, game.roomRows, roomChanged);
 };

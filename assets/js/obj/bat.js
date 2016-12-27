@@ -64,11 +64,6 @@ Bat.prototype.doUpdate = function(playerX, playerY, playerScale){
     }
 }
 
-Bat.prototype.processCollide = function(){
-    console.log('bat collide', this.active);
-    return this.active;
-}
-
 Bat.prototype.collide = function(sprite, collider, dmg){
     dmg = dmg || false;
     if(dmg){

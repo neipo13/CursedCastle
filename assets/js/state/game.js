@@ -13,6 +13,7 @@ var player = null,
     spikes = null,
     ghost = null,
     goose = null,
+    bat = null,
     bg = null,
     roomChangedEvent = null,
     ready = false,
@@ -50,6 +51,7 @@ function create() {
     
     goose = game.add.group();
     ghost = game.add.group();
+    bat = game.add.group();
     
     var roomsWide = 6;
     var roomsHigh = 3;
@@ -60,7 +62,7 @@ function create() {
     game.roomCols = 16;
     game.roomRows = 9;
     
-    levelGen(roomsHigh, roomsWide, startRoom, 2, 1, 1, platforms, door, spikes, goose, ghost, bg, game, roomChangedEvent);
+    levelGen(roomsHigh, roomsWide, startRoom, 2, 1, 1, platforms, door, spikes, goose, ghost, bat, bg, game, roomChangedEvent);
     game.world.setBounds(0, 0, game.tileSize * game.roomCols * (roomsWide +1), game.tileSize * game.roomCols * (roomsHigh + 1));
     
     
@@ -97,16 +99,20 @@ function update(){
         game.physics.arcade.collide(player.sprite, spikes, player.collideWithSpike);
         
         game.physics.arcade.collide(goose, platforms, hitGoose);
+        game.physics.arcade.collide(bat, platforms);
         
         game.physics.arcade.collide(ghost, player.sprite, enemyHit(ghost, player), processEnemyHit(ghost, player));
+        game.physics.arcade.collide(bat, player.sprite, enemyHit(bat, player));
         game.physics.arcade.collide(goose, player.sprite, gooseHit);
         
         game.physics.arcade.collide(platforms, bullets, bulletHit(platforms, bullets));
         game.physics.arcade.collide(goose, bullets, bulletHit(goose, bullets));
         game.physics.arcade.collide(ghost, bullets, bulletHit(ghost, bullets));
+        game.physics.arcade.collide(bat, bullets, bulletHit(bat, bullets));
         
         goose.callAll('doUpdate', null);
         ghost.callAll('doUpdate', null, player.sprite.x, player.sprite.y, player.sprite.scale.x);
+        bat.callAll('doUpdate', null, player.sprite.x, player.sprite.y, player.sprite.scale.x);
         bullets.callAll('doUpdate', null);
         
         
